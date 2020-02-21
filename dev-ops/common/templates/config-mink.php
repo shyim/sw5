@@ -69,8 +69,6 @@ return [
     ],
 
     'mail' => [
-        'type' => 'smtp',
-        'host' => 'smtp',
-        'port' => 1025,
+        'type' => 'file'
     ],
 ];
