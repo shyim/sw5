@@ -9,7 +9,7 @@ addons:
         - mysql
         - elasticsearch
         - selenium
-        - sw5.local
+        - shopwaretest.de
 
 env:
     global:
@@ -84,7 +84,7 @@ jobs:
       install:
           - docker run --name=web -e SHOPWARE_ENV=production -v $(pwd):/var/www/html -p80:80 --link=mysqld:mysql -d shyim/shopware-travis:php74
           - docker run --name=selenium -p4444:4444 --link web:sw5.local -d selenium/standalone-chrome:3.8.1
-          - ./psh.phar init --DB_HOST=mysql --DB_USER=travis --DB_PASSWORD=travis --SW_HOST=sw5.local
+          - ./psh.phar init --DB_HOST=mysql --DB_USER=travis --DB_PASSWORD=travis --SW_HOST=shopwaretest.de
       script:
           - chmod 777 -R web var files
-          - ./psh.phar mink --DB_HOST=mysql --DB_USER=travis --DB_PASSWORD=travis --SW_HOST=sw5.local
+          - ./psh.phar mink --DB_HOST=mysql --DB_USER=travis --DB_PASSWORD=travis --SW_HOST=shopwaretest.de
