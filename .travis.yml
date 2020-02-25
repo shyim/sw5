@@ -37,46 +37,46 @@ jobs:
     fast_finish: true
     # Code-Style
     include:
-#    - stage: lint
-#      php: 7.3
-#      script:
-#        - ./psh.phar check-code
-#
-#    # Run Unit Tests
-#    - stage: PHP
-#      php: 7.2
-#    - stage: PHP
-#      php: 7.3
-#    - stage: PHP
-#      php: 7.4
-#
-#    # Run Database Tests
-#    - stage: Database
-#      php: 7.2
-#      env:
-#          - DB="mysql:8.0"
-#    - stage: Database
-#      php: 7.4
-#      env:
-#        - DB="mariadb:10.1"
-#    - stage: Database
-#      php: 7.4
-#      env:
-#          - DB="mariadb:10.3"
-#
-#    # Run Elasticsearch Tests
-#    - stage: Elasticsearch
-#      php: 7.2
-#      env:
-#          - ELASTICSEARCH="elastic/elasticsearch:6.3.0"
-#      script:
-#          - ./psh.phar unit-elasticsearch --DB_HOST=mysql --DB_USER=travis --DB_PASSWORD=travis --SW_HOST=localhost
-#    - stage: Elasticsearch
-#      php: 7.2
-#      env:
-#        - ELASTICSEARCH="elastic/elasticsearch:7.0.0"
-#      script:
-#        - ./psh.phar unit-elasticsearch --DB_HOST=mysql --DB_USER=travis --DB_PASSWORD=travis --SW_HOST=localhost
+    - stage: lint
+      php: 7.3
+      script:
+        - ./psh.phar check-code
+
+    # Run Unit Tests
+    - stage: PHP
+      php: 7.2
+    - stage: PHP
+      php: 7.3
+    - stage: PHP
+      php: 7.4
+
+    # Run Database Tests
+    - stage: Database
+      php: 7.2
+      env:
+          - DB="mysql:8.0"
+    - stage: Database
+      php: 7.4
+      env:
+        - DB="mariadb:10.1"
+    - stage: Database
+      php: 7.4
+      env:
+          - DB="mariadb:10.3"
+
+    # Run Elasticsearch Tests
+    - stage: Elasticsearch
+      php: 7.2
+      env:
+          - ELASTICSEARCH="elastic/elasticsearch:6.3.0"
+      script:
+          - ./psh.phar unit-elasticsearch --DB_HOST=mysql --DB_USER=travis --DB_PASSWORD=travis --SW_HOST=localhost
+    - stage: Elasticsearch
+      php: 7.2
+      env:
+        - ELASTICSEARCH="elastic/elasticsearch:7.0.0"
+      script:
+        - ./psh.phar unit-elasticsearch --DB_HOST=mysql --DB_USER=travis --DB_PASSWORD=travis --SW_HOST=localhost
 
     # Run Mink
     - stage: Mink
