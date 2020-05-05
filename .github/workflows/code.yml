@@ -1,0 +1,24 @@
+name: Check Code
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - uses: shivammathur/setup-php@v2
+      with:
+        php-version: '7.4'
+        tools: composer, prestissimo
+
+    - name: Install Shopware
+      run: ./psh.phar init --DB_HOST=mysql --DB_USER=travis --DB_PASSWORD=travis --SW_HOST=localhost
+
+    - name: Check code
+      run: ./psh.phar check-code
