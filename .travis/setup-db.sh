@@ -4,6 +4,7 @@ set -x
 set -v
 
 STARTPARAMS=""
+DB=$1
 
 if [[ $DB == "mysql:8.0" ]]; then
     STARTPARAMS="mysqld --default-authentication-plugin=mysql_native_password"
