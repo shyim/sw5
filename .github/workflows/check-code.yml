@@ -7,8 +7,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      DB: mysql:5.7
 
     steps:
     - uses: actions/checkout@v2
@@ -19,7 +17,7 @@ jobs:
         tools: composer, prestissimo
         
     - name: Start MySQL
-      run: ./.travis/setup-db.sh
+      run: ./.github/setup-db.sh mysql:5.7
       
     - name: Install Shopware
       run: ./psh.phar init --DB_HOST=127.0.0.1 --DB_USER=travis --DB_PASSWORD=travis --SW_HOST=localhost
