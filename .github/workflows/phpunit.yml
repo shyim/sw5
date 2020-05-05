@@ -73,6 +73,9 @@ jobs:
     
     - name: Start Elasticsearch
       run: ./.github/setup-es.sh ${{ matrix.elasticsearch }}
+    
+    - name: Setup DNS
+      run: sudo echo "127.0.0.1 elasticsearch" | sudo tee -a /etc/hosts
       
     - name: Install Shopware
       run: ./psh.phar init --DB_HOST=127.0.0.1 --DB_USER=shopware --DB_PASSWORD=shopware --SW_HOST=localhost
