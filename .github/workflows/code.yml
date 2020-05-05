@@ -17,6 +17,9 @@ jobs:
         php-version: '7.4'
         tools: composer, prestissimo
 
+    - name: Start MySQL
+      run: ./.travis/setup-db.sh
+      
     - name: Install Shopware
       run: ./psh.phar init --DB_HOST=mysql --DB_USER=travis --DB_PASSWORD=travis --SW_HOST=localhost
 
