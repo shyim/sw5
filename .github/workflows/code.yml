@@ -21,6 +21,9 @@ jobs:
 
     - name: Start MySQL
       run: ./.travis/setup-db.sh
+    
+    - name: TEst
+      run: docker ps
       
     - name: Install Shopware
       run: ./psh.phar init --DB_HOST=mysql --DB_USER=travis --DB_PASSWORD=travis --SW_HOST=localhost
