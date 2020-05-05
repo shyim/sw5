@@ -1,4 +1,4 @@
-name: Check Code
+name: PHPUnit (PHP)
 
 on:
   push:
@@ -6,6 +6,9 @@ on:
 
 jobs:
   build:
+    strategy:
+      matrix:
+        elasticsearch: ['elastic/elasticsearch:6.3.0', 'elastic/elasticsearch:7.0.0']
     runs-on: ubuntu-latest
 
     steps:
@@ -18,9 +21,12 @@ jobs:
         
     - name: Start MySQL
       run: ./.github/setup-db.sh mysql:5.7
+    
+    - name: Start Elasticsearch
+      run: ./.github/setup-es.sh {{ matrix.elasticsearch }}
       
     - name: Install Shopware
       run: ./psh.phar init --DB_HOST=127.0.0.1 --DB_USER=shopware --DB_PASSWORD=shopware --SW_HOST=localhost
 
-    - name: Check code
-      run: ./psh.phar check-code
+    - name: PHPUnit
+      run: ./psh.phar unit-elasticsearch --DB_HOST=127.0.0.1 --DB_USER=shopware --DB_PASSWORD=shopware --SW_HOST=localhost

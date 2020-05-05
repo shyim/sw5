@@ -1,4 +1,4 @@
-name: Check Code
+name: PHPUnit (PHP)
 
 on:
   push:
@@ -6,6 +6,9 @@ on:
 
 jobs:
   build:
+    strategy:
+      matrix:
+        mysql: ['mysql:8.0.19', 'mariadb:10.1', 'mariadb:10.4']
     runs-on: ubuntu-latest
 
     steps:
@@ -17,10 +20,10 @@ jobs:
         tools: composer, prestissimo
         
     - name: Start MySQL
-      run: ./.github/setup-db.sh mysql:5.7
+      run: ./.github/setup-db.sh ${{ matrix.mysql }}
       
     - name: Install Shopware
       run: ./psh.phar init --DB_HOST=127.0.0.1 --DB_USER=shopware --DB_PASSWORD=shopware --SW_HOST=localhost
 
-    - name: Check code
-      run: ./psh.phar check-code
+    - name: PHPUnit
+      run: ./psh.phar unit-fast --DB_HOST=127.0.0.1 --DB_USER=shopware --DB_PASSWORD=shopware --SW_HOST=localhost

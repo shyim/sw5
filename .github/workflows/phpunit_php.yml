@@ -23,7 +23,7 @@ jobs:
       run: ./.github/setup-db.sh mysql:5.7
       
     - name: Install Shopware
-      run: ./psh.phar init --DB_HOST=127.0.0.1 --DB_USER=travis --DB_PASSWORD=travis --SW_HOST=localhost
+      run: ./psh.phar init --DB_HOST=127.0.0.1 --DB_USER=shopware --DB_PASSWORD=shopware --SW_HOST=localhost
 
     - name: PHPUnit
-      run: ./psh.phar unit-fast --DB_HOST=127.0.0.1 --DB_USER=travis --DB_PASSWORD=travis --SW_HOST=localhost
+      run: ./psh.phar unit-fast --DB_HOST=127.0.0.1 --DB_USER=shopware --DB_PASSWORD=shopware --SW_HOST=localhost
