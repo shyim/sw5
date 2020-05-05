@@ -6,18 +6,6 @@ on:
 
 jobs:
   build:
-    services:
-      mysql:
-        image: mysql:5.7
-        env:
-          MYSQL_ROOT_PASSWORD: shopware
-          MYSQL_USER: shopware
-          MYSQL_PASSWORD: shopware
-          MYSQL_DATABASE: shopware
-        ports:
-          - 3306/tcp
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
-
     runs-on: ubuntu-latest
     env:
       DB: mysql:5.7
@@ -29,9 +17,12 @@ jobs:
       with:
         php-version: '7.4'
         tools: composer, prestissimo
+        
+    - name: Start MySQL
+      run: ./.travis/setup-db.sh
       
     - name: Install Shopware
-      run: ./psh.phar init --DB_HOST=127.0.0.1 --DB_USER=shopware --DB_PASSWORD=shopware --SW_HOST=localhost
+      run: ./psh.phar init --DB_HOST=127.0.0.1 --DB_USER=travis --DB_PASSWORD=travis --SW_HOST=localhost
 
     - name: Check code
       run: ./psh.phar check-code
