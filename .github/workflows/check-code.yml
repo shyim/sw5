@@ -26,7 +26,7 @@ jobs:
     - name: Junit FIle
       run: cat php-cs-fixer.xml
     
-    - uses: shyim/junit-report-annotations-action@0.1.4
+    - uses: shyim/junit-report-annotations-action@0.1.5
       with:
         accessToken: ${{ secrets.GITHUB_TOKEN }}
         stripFromPath: 'sw5/'
