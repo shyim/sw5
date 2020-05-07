@@ -26,6 +26,9 @@ jobs:
     - name: Check code
       run: ./psh.phar check-code
     
+    - name: Junit FIle
+      run: cat php-cs-fixer.xml
+    
     - uses: IgnusG/jest-report-action@v2.3.1
       with:
         access-token: ${{ secrets.GITHUB_TOKEN }}
