@@ -29,7 +29,7 @@ jobs:
     - name: Junit FIle
       run: cat php-cs-fixer.xml
     
-    - uses: shyim/junit-report-annotations-action@0.0.1
+    - uses: shyim/junit-report-annotations-action@0.1.2
       with:
         access-token: ${{ secrets.GITHUB_TOKEN }}
         path: php-cs-fixer.xml
