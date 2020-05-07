@@ -17,19 +17,17 @@ jobs:
         tools: composer, prestissimo
         coverage: none
         
-    - name: Start MySQL
-      run: ./.github/setup-db.sh mysql:5.7
       
     - name: Install Shopware
-      run: ./psh.phar init --DB_HOST=127.0.0.1 --DB_USER=shopware --DB_PASSWORD=shopware --SW_HOST=localhost
+      run: composer install
 
     - name: Check code
-      run: ./psh.phar check-code
+      run: vendor/bin/php-cs-fixer  fix --dry-run -v --allow-risky=yes --format=junit | tee php-cs-fixer.xml
     
     - name: Junit FIle
       run: cat php-cs-fixer.xml
     
-    - uses: shyim/junit-report-annotations-action@0.1.2
+    - uses: shyim/junit-report-annotations-action@0.1.3
       with:
         access-token: ${{ secrets.GITHUB_TOKEN }}
         path: php-cs-fixer.xml
