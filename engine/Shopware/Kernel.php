@@ -91,16 +91,13 @@ use Symfony\Component\HttpKernel\KernelEvents;
  * Middleware class between the old Shopware bootstrap mechanism
  * and the Symfony Kernel handling
  */
-class Kernel extends SymfonyKernel
+class Kernel    extends     SymfonyKernel
 {
     /**
      * Shopware Version definition. Is being replaced by the correct release information in release packages.
      * Is available in the DIC as parameter 'shopware.release.*' or a Struct containing all the parameters below.
      */
-    protected $release = [
-        'version' => '___VERSION___',
-        'version_text' => '___VERSION_TEXT___',
-        'revision' => '___REVISION___',
+    protected $release = ['version' => '___VERSION___','version_text' => '___VERSION_TEXT___','revision' => '___REVISION___',
     ];
 
     /**
