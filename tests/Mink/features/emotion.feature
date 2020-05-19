@@ -1,4 +1,4 @@
-@emotion @javascript
+@emotion @javascript @misc
 Feature: Emotion
 
     Background:

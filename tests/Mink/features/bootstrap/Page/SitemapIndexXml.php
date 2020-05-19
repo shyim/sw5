@@ -37,19 +37,12 @@ class SitemapIndexXml extends Page
     /**
      * @throws \Exception
      */
-    public function checkXml(array $links)
+    public function checkXml()
     {
-        $homepageUrl = rtrim($this->getParameter('base_url'), '/');
-        $xml = json_decode(json_encode(simplexml_load_string($this->getContent())), true);
-        $xml = $xml['body']['div'][0]['sitemapindex'];
+        $content = $this->getContent();
 
-        if (!isset($xml['sitemap']['loc'])) {
-            Helper::throwException('Sitemap is missing in /sitemap_index.xml');
-        }
-
-        $expected = sprintf('%s/web/sitemap/shop-1/%s', $homepageUrl, $links[0]['name']);
-        if ($xml['sitemap']['loc'] !== $expected) {
-            Helper::throwException(sprintf('Sitemap url does not match excepted, excepted: %s, given %s', $expected, $xml['sitemap']['loc']));
+        if (strpos($content, 'web/sitemap/shop-1/sitemap-1.xml.gz') === false) {
+            Helper::throwException('Cannot find sitemap "web/sitemap/shop-1/sitemap-1.xml.gz"');
         }
     }
 }

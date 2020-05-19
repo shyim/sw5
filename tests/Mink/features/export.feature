@@ -1,4 +1,4 @@
-@feature
+@feature @misc
 Feature: Export products into custom feeds
 
   @productFeeds
