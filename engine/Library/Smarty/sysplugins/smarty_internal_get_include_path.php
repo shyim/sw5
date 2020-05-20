@@ -27,7 +27,7 @@ class Smarty_Internal_Get_Include_Path {
 
         if (function_exists('stream_resolve_include_path')) {
             // available since PHP 5.3.2
-            $filePath = strpos($filePath, '.' . DS) === 0 ? substr($filePath, 2) : $filePath;
+            $filePath = strpos($filePath, '.' . DIRECTORY_SEPARATOR) === 0 ? substr($filePath, 2) : $filePath;
             return stream_resolve_include_path($filePath);
         }
 
@@ -36,8 +36,8 @@ class Smarty_Internal_Get_Include_Path {
         }
 
         foreach ($_include_path as $_path) {
-            if (file_exists($_path . DS . $filePath)) {
-                return $_path . DS . $filePath;
+            if (file_exists($_path . DIRECTORY_SEPARATOR . $filePath)) {
+                return $_path . DIRECTORY_SEPARATOR . $filePath;
             }
         }
 

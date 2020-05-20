@@ -69,7 +69,7 @@ class Smarty_Internal_Compile_Include_Php extends Smarty_Internal_CompileBase {
             }
             if (!empty($_dir)) {
                 foreach((array)$_dir as $_script_dir) {
-                    $_script_dir = rtrim($_script_dir, '/\\') . DS;
+                    $_script_dir = rtrim($_script_dir, '/\\') . DIRECTORY_SEPARATOR;
                     if (file_exists($_script_dir . $_file)) {
                         $_filepath = $_script_dir .  $_file;
                         break;

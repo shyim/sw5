@@ -374,9 +374,6 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
         $output = '';
         if (!$this->source->recompiled) {
             $output = "<?php /*%%SmartyHeaderCode:{$this->properties['nocache_hash']}%%*/";
-            if ($this->smarty->direct_access_security) {
-                $output .= "if(!defined('SMARTY_DIR')) exit('no direct access allowed');\n";
-            }
         }
         if ($cache) {
             // remove compiled code of{function} definition

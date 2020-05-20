@@ -65,8 +65,10 @@ use Shopware\Components\DependencyInjection\Compiler\EventSubscriberCompilerPass
 use Shopware\Components\DependencyInjection\Compiler\LegacyApiResourcesPass;
 use Shopware\Components\DependencyInjection\Compiler\PluginLoggerCompilerPass;
 use Shopware\Components\DependencyInjection\Compiler\PluginResourceCompilerPass;
+use Shopware\Components\DependencyInjection\Compiler\PreloadCollectorCompilerPass;
 use Shopware\Components\DependencyInjection\Container;
 use Shopware\Components\DependencyInjection\LegacyPhpDumper;
+use Shopware\Components\DependencyInjection\Preloader;
 use Shopware\Components\Plugin;
 use Symfony\Component\Config\ConfigCache;
 use Symfony\Component\Config\FileLocator;
@@ -87,6 +89,18 @@ use Symfony\Component\HttpKernel\Event\PostResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\Kernel as SymfonyKernel;
 use Symfony\Component\HttpKernel\KernelEvents;
+
+// Help opcache.preload discover always-needed symbols
+class_exists(SymfonyKernel::class);
+class_exists(SymfonyRequest::class);
+class_exists(EnlightRequest::class);
+class_exists(SymfonyResponse::class);
+class_exists(\Enlight_Controller_Front::class);
+class_exists(ConfigCache::class);
+class_exists(Components\DependencyInjection\Bridge\Db::class);
+class_exists(ConfigLoader::class);
+class_exists(\Shopware::class);
+interface_exists(HttpKernelInterface::class);
 
 /**
  * Middleware class between the old Shopware bootstrap mechanism
@@ -554,6 +568,9 @@ class Kernel extends SymfonyKernel
             $container->compile();
 
             $this->dumpContainer($cache, $container, $class, Container::class);
+            $classes = array_merge($container->getParameter('shopware.container.preload_classes'), array_map('get_class', $this->bundles));
+            $classes[] = $class;
+            Preloader::generate($this->getRootDir() . '/var/cache/preload.php', $classes, [$cache->getPath()]);
         }
 
         require_once $cache->getPath();
@@ -673,6 +690,7 @@ class Kernel extends SymfonyKernel
         $container->addCompilerPass(new ControllerCompilerPass());
         $container->addCompilerPass(new RegisterControllerArgumentLocatorsPass('argument_resolver.service', 'shopware.controller'));
         $container->addCompilerPass(new VersionCompilerPass());
+        $container->addCompilerPass(new PreloadCollectorCompilerPass());
 
         $container->setParameter('active_plugins', $this->activePlugins);
 
@@ -745,7 +763,7 @@ class Kernel extends SymfonyKernel
             'shopware.release.version_text' => $this->release['version_text'],
             'shopware.release.revision' => $this->release['revision'],
             'kernel.default_error_level' => $this->config['logger']['level'],
-            'shopware.bundle.content_type.types' => $this->loadContentTypes(),
+            'shopware.bundle.content_type.types' => $this->loadContentTypes()
         ];
     }
 

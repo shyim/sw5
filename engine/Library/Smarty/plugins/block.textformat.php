@@ -91,7 +91,7 @@ function smarty_block_textformat($params, $content, $template, &$repeat)
         }
         // wordwrap sentences
         if (Smarty::$_MBSTRING) {
-            require_once(SMARTY_PLUGINS_DIR . 'shared.mb_wordwrap.php');
+            require_once __DIR__ . '/shared.mb_wordwrap.php';
             $_paragraph = smarty_mb_wordwrap($_paragraph, $wrap - $indent, $wrap_char, $wrap_cut);
         } else {
             $_paragraph = wordwrap($_paragraph, $wrap - $indent, $wrap_char, $wrap_cut);
@@ -102,7 +102,7 @@ function smarty_block_textformat($params, $content, $template, &$repeat)
         }
     }
     $_output = implode($wrap_char . $wrap_char, $_paragraphs);
-    
+
     if ($assign) {
         $template->assign($assign, $_output);
     } else {

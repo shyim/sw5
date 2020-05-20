@@ -9,7 +9,7 @@
 /**
  * @ignore
  */
-require_once( SMARTY_PLUGINS_DIR .'shared.literal_compiler_param.php' );
+require_once( __DIR__ .'/shared.literal_compiler_param.php' );
 
 /**
  * Smarty escape modifier plugin
@@ -78,10 +78,10 @@ function smarty_modifiercompiler_escape($params, $compiler)
 
     // could not optimize |escape call, so fallback to regular plugin
     if ($compiler->tag_nocache | $compiler->nocache) {
-        $compiler->template->required_plugins['nocache']['escape']['modifier']['file'] = SMARTY_PLUGINS_DIR .'modifier.escape.php';
+        $compiler->template->required_plugins['nocache']['escape']['modifier']['file'] = __DIR__ .'/modifier.escape.php';
         $compiler->template->required_plugins['nocache']['escape']['modifier']['function'] = 'smarty_modifier_escape';
     } else {
-        $compiler->template->required_plugins['compiled']['escape']['modifier']['file'] = SMARTY_PLUGINS_DIR .'modifier.escape.php';
+        $compiler->template->required_plugins['compiled']['escape']['modifier']['file'] = __DIR__ .'/modifier.escape.php';
         $compiler->template->required_plugins['compiled']['escape']['modifier']['function'] = 'smarty_modifier_escape';
     }
     return 'smarty_modifier_escape(' . join( ', ', $params ) . ')';

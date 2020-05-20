@@ -33,12 +33,12 @@ class Smarty_Internal_CacheResource_File extends Smarty_CacheResource {
         $_filepath = $_template->source->uid;
         // if use_sub_dirs, break file into directories
         if ($_template->smarty->use_sub_dirs) {
-            $_filepath = substr($_filepath, 0, 2) . DS
-                . substr($_filepath, 2, 2) . DS
-                . substr($_filepath, 4, 2) . DS
+            $_filepath = substr($_filepath, 0, 2) . DIRECTORY_SEPARATOR
+                . substr($_filepath, 2, 2) . DIRECTORY_SEPARATOR
+                . substr($_filepath, 4, 2) . DIRECTORY_SEPARATOR
                 . $_filepath;
         }
-        $_compile_dir_sep = $_template->smarty->use_sub_dirs ? DS : '^';
+        $_compile_dir_sep = $_template->smarty->use_sub_dirs ? DIRECTORY_SEPARATOR : '^';
         if (isset($_cache_id)) {
             $_cache_id = str_replace('|', $_compile_dir_sep, $_cache_id) . $_compile_dir_sep;
         } else {
@@ -54,7 +54,7 @@ class Smarty_Internal_CacheResource_File extends Smarty_CacheResource {
             // create locking file name
             // relative file name?
             if (!preg_match('/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/', $_cache_dir)) {
-                $_lock_dir = rtrim(getcwd(), '/\\') . DS . $_cache_dir;
+                $_lock_dir = rtrim(getcwd(), '/\\') . DIRECTORY_SEPARATOR . $_cache_dir;
             } else {
                 $_lock_dir = $_cache_dir;
             }
@@ -144,7 +144,7 @@ class Smarty_Internal_CacheResource_File extends Smarty_CacheResource {
             $_cache_id_parts_count = count($_cache_id_parts);
             if ($smarty->use_sub_dirs) {
                 foreach ($_cache_id_parts as $id_part) {
-                    $_dir .= $id_part . DS;
+                    $_dir .= $id_part . DIRECTORY_SEPARATOR;
                 }
             }
         }

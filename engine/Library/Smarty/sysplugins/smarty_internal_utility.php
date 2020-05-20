@@ -78,7 +78,7 @@ class Smarty_Internal_Utility {
                 if ($_fileinfo->getPath() == substr($_dir, 0, -1)) {
                    $_template_file = $_file;
                 } else {
-                   $_template_file = substr($_fileinfo->getPath(), strlen($_dir)) . DS . $_file;
+                   $_template_file = substr($_fileinfo->getPath(), strlen($_dir)) . DIRECTORY_SEPARATOR . $_file;
                 }
                 echo '<br>', $_dir, '---', $_template_file;
                 flush();
@@ -142,7 +142,7 @@ class Smarty_Internal_Utility {
                 if ($_fileinfo->getPath() == substr($_dir, 0, -1)) {
                     $_config_file = $_file;
                 } else {
-                    $_config_file = substr($_fileinfo->getPath(), strlen($_dir)) . DS . $_file;
+                    $_config_file = substr($_fileinfo->getPath(), strlen($_dir)) . DIRECTORY_SEPARATOR . $_file;
                 }
                 echo '<br>', $_dir, '---', $_config_file;
                 flush();
@@ -185,7 +185,7 @@ class Smarty_Internal_Utility {
     {
         $_compile_dir = $smarty->getCompileDir();
         $_compile_id = isset($compile_id) ? preg_replace('![^\w\|]+!', '_', $compile_id) : null;
-        $_dir_sep = $smarty->use_sub_dirs ? DS : '^';
+        $_dir_sep = $smarty->use_sub_dirs ? DIRECTORY_SEPARATOR : '^';
         if (isset($resource_name)) {
             $_save_stat = $smarty->caching;
             $smarty->caching = false;

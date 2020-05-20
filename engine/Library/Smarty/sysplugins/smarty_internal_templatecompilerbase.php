@@ -464,8 +464,9 @@ abstract class Smarty_Internal_TemplateCompilerBase {
             // compile this tag
             return self::$_tag_objects[$tag]->compile($args, $this, $param1, $param2, $param3);
         }
+
         // lazy load internal compiler plugin
-        $class_name = 'Smarty_Internal_Compile_' . $tag;
+        $class_name = 'Smarty_Internal_Compile_' .  implode('_', array_map('ucfirst', explode('_', $tag)));
         if ($this->smarty->loadPlugin($class_name)) {
             // check if tag allowed by security
             if (!isset($this->smarty->security_policy) || $this->smarty->security_policy->isTrustedTag($tag, $this)) {

@@ -84,11 +84,11 @@ class Enlight_Template_Manager extends Smarty
         $this->_dir_perms = $backendOptions['hashed_directory_perm'];
 
         // Set default dirs
-        $this->setTemplateDir('.' . DS . 'templates' . DS)
-            ->setCompileDir('.' . DS . 'templates_c' . DS)
-            ->setPluginsDir([dirname(__FILE__) . '/Plugins/', SMARTY_PLUGINS_DIR])
-            ->setCacheDir('.' . DS . 'cache' . DS)
-            ->setConfigDir('.' . DS . 'configs' . DS);
+        $this->setTemplateDir('.' . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR)
+            ->setCompileDir('.' . DIRECTORY_SEPARATOR . 'templates_c' . DIRECTORY_SEPARATOR)
+            ->setPluginsDir([__DIR__ . '/Plugins/', dirname(__DIR__, 2) .'/Smarty/plugins/'])
+            ->setCacheDir('.' . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR)
+            ->setConfigDir('.' . DIRECTORY_SEPARATOR . 'configs' . DIRECTORY_SEPARATOR);
 
         $this->debug_tpl = 'file:' . SMARTY_DIR . '/debug.tpl';
 

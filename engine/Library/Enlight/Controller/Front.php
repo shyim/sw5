@@ -19,6 +19,14 @@
 
 use Symfony\Component\HttpFoundation\RequestStack;
 
+class_exists(Enlight_Controller_EventArgs::class);
+class_exists(Enlight_Plugin_Namespace::class);
+class_exists(\Shopware\Components\Routing\Router::class);
+class_exists(Enlight_Controller_Dispatcher::class);
+class_exists(Enlight_Controller_Dispatcher_Default::class);
+class_exists(Enlight_Event_EventManager::class);
+class_exists(RequestStack::class);
+
 /**
  * Enlight_Controller_Front managed everything between the request, response, dispatcher and router.
  *

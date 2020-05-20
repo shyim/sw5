@@ -125,12 +125,12 @@ abstract class Smarty_Resource
         $_filepath = $compiled->source->uid;
         // if use_sub_dirs, break file into directories
         if ($_template->smarty->use_sub_dirs) {
-            $_filepath = substr($_filepath, 0, 2) . DS
-             . substr($_filepath, 2, 2) . DS
-             . substr($_filepath, 4, 2) . DS
+            $_filepath = substr($_filepath, 0, 2) . DIRECTORY_SEPARATOR
+             . substr($_filepath, 2, 2) . DIRECTORY_SEPARATOR
+             . substr($_filepath, 4, 2) . DIRECTORY_SEPARATOR
              . $_filepath;
         }
-        $_compile_dir_sep = $_template->smarty->use_sub_dirs ? DS : '^';
+        $_compile_dir_sep = $_template->smarty->use_sub_dirs ? DIRECTORY_SEPARATOR : '^';
         if (isset($_compile_id)) {
             $_filepath = $_compile_id . $_compile_dir_sep . $_filepath;
         }
@@ -400,7 +400,7 @@ abstract class Smarty_Resource
             $_path = substr_replace($_path, '', $_pos, $_parent + 3 - $_pos);
         }
 
-        if ($ds && DS != '/') {
+        if ($ds && DIRECTORY_SEPARATOR != '/') {
             // don't we all just love windows?
             $_path = str_replace('/', '\\', $_path);
         }
@@ -435,12 +435,12 @@ abstract class Smarty_Resource
             if ($_template->parent->source->type != 'file' && $_template->parent->source->type != 'extends' && !$_template->parent->allow_relative_path) {
                 throw new SmartyException("Template '{$file}' cannot be relative to template of resource type '{$_template->parent->source->type}'");
             }
-            $file = dirname($_template->parent->source->filepath) . DS . $file;
+            $file = dirname($_template->parent->source->filepath) . DIRECTORY_SEPARATOR . $file;
             $_file_exact_match = true;
             if (!preg_match('/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/', $file)) {
                 // the path gained from the parent template is relative to the current working directory
                 // as expansions (like include_path) have already been done
-                $file = getcwd() . DS . $file;
+                $file = getcwd() . DIRECTORY_SEPARATOR . $file;
             }
         }
 
@@ -450,17 +450,17 @@ abstract class Smarty_Resource
             $validPaths = substr($source->unique_resource, strpos($source->unique_resource, '#') + 1);
             $validPaths = substr($validPaths, 0, strrpos($validPaths, '#'));
 
-            $delimiter = DS . DS . DS;
-            $prefix = DS;
+            $delimiter = DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR;
+            $prefix = DIRECTORY_SEPARATOR;
 
             // if server is running windows
-            if (DS === '\\') {
-                $delimiter = DS . DS;
+            if (DIRECTORY_SEPARATOR === '\\') {
+                $delimiter = DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR;
                 $prefix = '';
             }
 
             foreach (explode($delimiter, $validPaths) as $path) {
-                $fullPath = sprintf('%s%s%s%s', $prefix, trim($path, DS), DS, $file);
+                $fullPath = sprintf('%s%s%s%s', $prefix, trim($path, DIRECTORY_SEPARATOR), DIRECTORY_SEPARATOR, $file);
                 if (file_exists($fullPath)) {
                     $pathIsValid = true;
                     break;
@@ -475,14 +475,14 @@ abstract class Smarty_Resource
         // resolve relative path
         if (!preg_match('/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/', $file)) {
             $_was_relative_prefix = $file[0] === '.' ? substr($file, 0, strpos($file, '|')) : null;
-            $_path = DS . trim($file, '/\\');
+            $_path = DIRECTORY_SEPARATOR . trim($file, '/\\');
             $_was_relative = true;
         } else {
             // don't we all just love windows?
             $_path = str_replace('\\', '/', $file);
         }
         $_path = $this->normalizePath($_path, false);
-        if (DS != '/') {
+        if (DIRECTORY_SEPARATOR != '/') {
             // don't we all just love windows?
             $_path = str_replace('/', '\\', $_path);
         }
