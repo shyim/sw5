@@ -24,4 +24,4 @@ jobs:
       with:
         path: php-cs-fixer.xml
         stripFromPath: 'sw5/'
-        access-token: ${{ secrets.GITHUB_TOKEN }}
+        accessToken: ${{ secrets.GITHUB_TOKEN }}
