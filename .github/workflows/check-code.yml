@@ -23,3 +23,5 @@ jobs:
     - uses: shyim/junit-report-annotations-action@master
       with:
         path: php-cs-fixer.xml
+        stripFromPath: 'sw5/'
+        accessToken: ${{ secrets.GITHUB_TOKEN }}
