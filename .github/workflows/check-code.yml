@@ -10,6 +10,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    
+    - name: Install
+      run: composer install --ignore-platform-reqs
 
     - name: Check code
       run: ./psh.phar check-code
